@@ -1,0 +1,6 @@
+method,params_total,params_updated,pct_updated,inference_s,train_time_s,gpu_peak_mb
+Static-CNN,429761,0,—,0.171,—,83.0
+EWC-only,429761,429761,100%,0.107,0.82,94.4
+DRC-CL (CharCNN),442057,12296,2.8%,0.116,0.41,92.9
+DRC-CL (DistilBERT),66511105,148225,0.22%,3.83,8.38,358.7
+DistilBERT + FT,66363649,66363649,100%,2.29,13.48,448.3

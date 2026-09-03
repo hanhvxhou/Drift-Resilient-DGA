@@ -1,0 +1,2 @@
+aa_f1,bwt,fwt,forgetting,degrad,f1_old,f1_first,f1_last,aa_f1_char,aa_f1_word,method,time_s
+0.9588,0.0057,0.0,0.0003,-0.0166,0.9637,0.9502,0.9669,0.9664,0.0032,DRC-CL (DistilBERT),4326.3

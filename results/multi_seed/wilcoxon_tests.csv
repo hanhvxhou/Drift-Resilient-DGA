@@ -1,0 +1,9 @@
+method,vs,p_value,stat,significant,ref_mean,method_mean
+Static-CNN,DRC-CL,0.001953,0.0,**,0.9457,0.8676
+SW-Retrain,DRC-CL,0.005859,1.5,**,0.9457,0.9484
+EWC-only,DRC-CL,0.001953,0.0,**,0.9457,0.9614
+iCaRL,DRC-CL,0.009766,3.0,**,0.9457,0.9495
+GDumb,DRC-CL,0.001953,0.0,**,0.9457,0.9301
+CNN + LoRA Update,DRC-CL,0.003906,0.0,**,0.9457,0.948
+CNN + LoRA + SER,DRC-CL,0.001953,0.0,**,0.9457,0.9478
+CNN + LoRA + SER + EWC,DRC-CL,0.001953,0.0,**,0.9457,0.9478

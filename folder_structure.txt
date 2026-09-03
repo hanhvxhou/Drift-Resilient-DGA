@@ -1,0 +1,528 @@
+Drift-Resilient-DGA
+├── .idea
+│   ├── Drift-Resilient-DGA.iml
+│   ├── inspectionProfiles
+│   │   ├── Project_Default.xml
+│   │   └── profiles_settings.xml
+│   ├── misc.xml
+│   ├── modules.xml
+│   ├── vcs.xml
+│   └── workspace.xml
+├── README.md
+├── check_data.py
+├── check_env.py
+├── check_gpu.py
+├── check_word_basedDGA.py
+├── cleanup_drc_cl.py
+├── configs
+│   └── config.yaml
+├── data
+│   ├── interim
+│   │   ├── dgarchive_merged.parquet
+│   │   └── family_counts.csv
+│   ├── processed
+│   │   ├── benchmark
+│   │   │   ├── D01.csv
+│   │   │   ├── D02.csv
+│   │   │   ├── D03.csv
+│   │   │   ├── D04.csv
+│   │   │   ├── D05.csv
+│   │   │   ├── D06.csv
+│   │   │   ├── D07.csv
+│   │   │   ├── D08.csv
+│   │   │   ├── D09.csv
+│   │   │   ├── D10.csv
+│   │   │   ├── D11.csv
+│   │   │   ├── D12.csv
+│   │   │   ├── D13.csv
+│   │   │   ├── D14.csv
+│   │   │   ├── D15.csv
+│   │   │   ├── D16.csv
+│   │   │   ├── D17.csv
+│   │   │   ├── D18.csv
+│   │   │   ├── D19.csv
+│   │   │   ├── D20.csv
+│   │   │   ├── D21.csv
+│   │   │   ├── D22.csv
+│   │   │   ├── D23.csv
+│   │   │   ├── D24.csv
+│   │   │   ├── benchmark_stats.csv
+│   │   │   ├── drift_labels.json
+│   │   │   ├── family_coverage.csv
+│   │   │   ├── integrity_report.txt
+│   │   │   └── splits
+│   │   │       ├── D01_test.csv
+│   │   │       ├── D01_train.csv
+│   │   │       ├── D02_test.csv
+│   │   │       ├── D02_train.csv
+│   │   │       ├── D03_test.csv
+│   │   │       ├── D03_train.csv
+│   │   │       ├── D04_test.csv
+│   │   │       ├── D04_train.csv
+│   │   │       ├── D05_test.csv
+│   │   │       ├── D05_train.csv
+│   │   │       ├── D06_test.csv
+│   │   │       ├── D06_train.csv
+│   │   │       ├── D07_test.csv
+│   │   │       ├── D07_train.csv
+│   │   │       ├── D08_test.csv
+│   │   │       ├── D08_train.csv
+│   │   │       ├── D09_test.csv
+│   │   │       ├── D09_train.csv
+│   │   │       ├── D10_test.csv
+│   │   │       ├── D10_train.csv
+│   │   │       ├── D11_test.csv
+│   │   │       ├── D11_train.csv
+│   │   │       ├── D12_test.csv
+│   │   │       ├── D12_train.csv
+│   │   │       ├── D13_test.csv
+│   │   │       ├── D13_train.csv
+│   │   │       ├── D14_test.csv
+│   │   │       ├── D14_train.csv
+│   │   │       ├── D15_test.csv
+│   │   │       ├── D15_train.csv
+│   │   │       ├── D16_test.csv
+│   │   │       ├── D16_train.csv
+│   │   │       ├── D17_test.csv
+│   │   │       ├── D17_train.csv
+│   │   │       ├── D18_test.csv
+│   │   │       ├── D18_train.csv
+│   │   │       ├── D19_test.csv
+│   │   │       ├── D19_train.csv
+│   │   │       ├── D20_test.csv
+│   │   │       ├── D20_train.csv
+│   │   │       ├── D21_test.csv
+│   │   │       ├── D21_train.csv
+│   │   │       ├── D22_test.csv
+│   │   │       ├── D22_train.csv
+│   │   │       ├── D23_test.csv
+│   │   │       ├── D23_train.csv
+│   │   │       ├── D24_test.csv
+│   │   │       ├── D24_train.csv
+│   │   │       └── split_stats.csv
+│   │   └── windows
+│   │       ├── D01_dga.csv
+│   │       ├── D02_dga.csv
+│   │       ├── D03_dga.csv
+│   │       ├── D04_dga.csv
+│   │       ├── D05_dga.csv
+│   │       ├── D06_dga.csv
+│   │       ├── D07_dga.csv
+│   │       ├── D08_dga.csv
+│   │       ├── D09_dga.csv
+│   │       ├── D10_dga.csv
+│   │       ├── D11_dga.csv
+│   │       ├── D12_dga.csv
+│   │       ├── D13_dga.csv
+│   │       ├── D14_dga.csv
+│   │       ├── D15_dga.csv
+│   │       ├── D16_dga.csv
+│   │       ├── D17_dga.csv
+│   │       ├── D18_dga.csv
+│   │       ├── D19_dga.csv
+│   │       ├── D20_dga.csv
+│   │       ├── D21_dga.csv
+│   │       ├── D22_dga.csv
+│   │       ├── D23_dga.csv
+│   │       ├── D24_dga.csv
+│   │       └── window_stats.csv
+│   └── raw
+│       ├── .tranco_cache
+│       │   ├── 6J59X.csv
+│       │   ├── 6JVNX.csv
+│       │   ├── 7PXX.csv
+│       │   ├── G64K.csv
+│       │   ├── GPPK.csv
+│       │   ├── Z7GG.csv
+│       │   └── metadata.json
+│       ├── benign
+│       │   ├── benign_metadata.csv
+│       │   ├── tranco_2018.csv
+│       │   ├── tranco_2019.csv
+│       │   ├── tranco_2020.csv
+│       │   ├── tranco_2021.csv
+│       │   ├── tranco_2022.csv
+│       │   └── tranco_2023.csv
+│       └── dgarchive
+│           ├── abcbot_dga.csv
+│           ├── alien_dga.csv
+│           ├── amadey_dga.csv
+│           ├── ares_dga.csv
+│           ├── bamital_dga.csv
+│           ├── banjori_dga.csv
+│           ├── bazarbackdoor_dga.csv
+│           ├── bedep_dga.csv
+│           ├── bigviktor_dga.csv
+│           ├── blackhole_dga.csv
+│           ├── bobax_dga.csv
+│           ├── bumblebee_dga.csv
+│           ├── calfbot_dga.csv
+│           ├── ccleaner_dga.csv
+│           ├── chaes_dga.csv
+│           ├── chinad_dga.csv
+│           ├── chir_dga.csv
+│           ├── conficker_dga.csv
+│           ├── copperstealer_dga.csv
+│           ├── corebot_dga.csv
+│           ├── cryptolocker_dga.csv
+│           ├── darkcracks_dga.csv
+│           ├── darkshell_dga.csv
+│           ├── darkwatchman_dga.csv
+│           ├── diamondfox_dga.csv
+│           ├── dircrypt_dga.csv
+│           ├── dmsniff_dga.csv
+│           ├── dnsbenchmark_dga.csv
+│           ├── dnschanger_dga.csv
+│           ├── downloader_dga.csv
+│           ├── dyre_dga.csv
+│           ├── ebury_dga.csv
+│           ├── ekforward_dga.csv
+│           ├── emotet_dga.csv
+│           ├── enviserv_dga.csv
+│           ├── feodo_dga.csv
+│           ├── flashback_dga.csv
+│           ├── flubot_dga.csv
+│           ├── fobber_dga.csv
+│           ├── g01_dga.csv
+│           ├── gameover_dga.csv
+│           ├── gameover_p2p.csv
+│           ├── gazavat_dga.csv
+│           ├── gozi_dga.csv
+│           ├── goznym_dga.csv
+│           ├── grandoreiro_dga.csv
+│           ├── gspy_dga.csv
+│           ├── hesperbot_dga.csv
+│           ├── infy_dga.csv
+│           ├── kfos_dga.csv
+│           ├── kingminer_dga.csv
+│           ├── lechiket_dga.csv
+│           ├── locky_dga.csv
+│           ├── m0yv_dga.csv
+│           ├── m0yvtdd_dga.csv
+│           ├── madmax_dga.csv
+│           ├── makloader_dga.csv
+│           ├── matsnu_dga.csv
+│           ├── metastealer_dga.csv
+│           ├── mirai_dga.csv
+│           ├── mirainomi_dga.csv
+│           ├── misfox_dga.csv
+│           ├── monerominer_dga.csv
+│           ├── murofet_dga.csv
+│           ├── murofetweekly_dga.csv
+│           ├── mydoom_dga.csv
+│           ├── mydoomtid_dga.csv
+│           ├── n3cr0m0rph_dga.csv
+│           ├── necurs_dga.csv
+│           ├── ngioweb_dga.csv
+│           ├── nymaim2_dga.csv
+│           ├── nymaim_dga.csv
+│           ├── oderoor_dga.csv
+│           ├── omexo_dga.csv
+│           ├── orchard_dga.csv
+│           ├── orchardgenesis_dga.csv
+│           ├── padcrypt_dga.csv
+│           ├── pandabanker_dga.csv
+│           ├── phorpiex_dga.csv
+│           ├── pitou_dga.csv
+│           ├── prometei_dga.csv
+│           ├── proslikefan_dga.csv
+│           ├── pseudomanuscrypt_dga.csv
+│           ├── pushdo_dga.csv
+│           ├── pushdotid_dga.csv
+│           ├── pykspa2_dga.csv
+│           ├── pykspa2s_dga.csv
+│           ├── pykspa_dga.csv
+│           ├── qadars_dga.csv
+│           ├── qakbot_dga.csv
+│           ├── qhost_dga.csv
+│           ├── qsnatch_dga.csv
+│           ├── ramdo_dga.csv
+│           ├── ramnit_dga.csv
+│           ├── ranbyus_dga.csv
+│           ├── randomloader_dga.csv
+│           ├── recjs_dga.csv
+│           ├── redyms_dga.csv
+│           ├── rovnix_dga.csv
+│           ├── shadowpad_dga.csv
+│           ├── sharkbot_dga.csv
+│           ├── shifu_dga.csv
+│           ├── simda_dga.csv
+│           ├── sinowal_dga.csv
+│           ├── sisron_dga.csv
+│           ├── sphinx_dga.csv
+│           ├── suppobox_dga.csv
+│           ├── sutra_dga.csv
+│           ├── symmi_dga.csv
+│           ├── szribi_dga.csv
+│           ├── teleru_dga.csv
+│           ├── tempedreve_dga.csv
+│           ├── tempedrevetdd_dga.csv
+│           ├── tinba_dga.csv
+│           ├── tinyfluff_dga.csv
+│           ├── tinynuke_dga.csv
+│           ├── tofsee_dga.csv
+│           ├── tsifiri_dga.csv
+│           ├── tufik_dga.csv
+│           ├── ud2_dga.csv
+│           ├── ud3_dga.csv
+│           ├── ud5_dga.csv
+│           ├── ud6_dga.csv
+│           ├── ud7_dga.csv
+│           ├── urlzone_dga.csv
+│           ├── vawtrak_dga.csv
+│           ├── verblecon_dga.csv
+│           ├── vidro_dga.csv
+│           ├── vidrotid_dga.csv
+│           ├── vipersoftx_dga.csv
+│           ├── virut_dga.csv
+│           ├── vobfus_dga.csv
+│           ├── volatilecedar_dga.csv
+│           ├── wd_dga.csv
+│           ├── xagent_dga.csv
+│           ├── xxhex_dga.csv
+│           └── zloader_dga.csv
+├── folder_structure.txt
+├── notebooks
+├── requirements.txt
+├── results
+│   ├── ablation_bwt_detail.csv
+│   ├── ablation_per_window.csv
+│   ├── ablation_table.csv
+│   ├── adaptive_replay_comparison.json
+│   ├── all_baselines_per_window.csv
+│   ├── baseline_ewc_only_per_window.csv
+│   ├── baseline_gdumb_per_window.csv
+│   ├── baseline_icarl_per_window.csv
+│   ├── baseline_static_cnn_per_window.csv
+│   ├── baseline_sw_retrain_per_window.csv
+│   ├── checkpoints
+│   │   ├── adapters
+│   │   │   ├── adapter_ep001.pt
+│   │   │   └── bank_index.pt
+│   │   ├── backbone_d01.pt
+│   │   └── distilbert_d01.pt
+│   ├── cnn__lora__ser__ewc_accuracy_matrix.csv
+│   ├── cnn__lora__ser__ewc_cl_metrics.json
+│   ├── cnn__lora__ser_accuracy_matrix.csv
+│   ├── cnn__lora__ser_cl_metrics.json
+│   ├── cnn__lora_update_accuracy_matrix.csv
+│   ├── cnn__lora_update_cl_metrics.json
+│   ├── comparison_table.csv
+│   ├── computational_cost.csv
+│   ├── distilbert_finetune_accuracy_matrix.csv
+│   ├── distilbert_finetune_cl_metrics.json
+│   ├── distilbert_multiseed_agg.json
+│   ├── distilbert_multiseed_raw.csv
+│   ├── distilbert_per_window.csv
+│   ├── distilbert_results.csv
+│   ├── distilbert_static_accuracy_matrix.csv
+│   ├── distilbert_static_cl_metrics.json
+│   ├── drc-cl_accuracy_matrix.csv
+│   ├── drc-cl_cl_metrics.json
+│   ├── drc_cl_distilbert_accuracy_matrix.csv
+│   ├── drc_cl_distilbert_cl_metrics.json
+│   ├── drc_cl_distilbert_results.csv
+│   ├── drc_cl_per_window.csv
+│   ├── drc_cl_summary.json
+│   ├── drift_detector_comparison.csv
+│   ├── ewc-only_accuracy_matrix.csv
+│   ├── ewc-only_cl_metrics.json
+│   ├── extra_baselines_results.csv
+│   ├── extra_baselines_results.json
+│   ├── f1_over_time.csv
+│   ├── f1_over_time_all.csv
+│   ├── figure2_f1_over_time.pdf
+│   ├── figure2_f1_over_time.png
+│   ├── figure3_roc_pr_curves.pdf
+│   ├── figure3_roc_pr_curves.png
+│   ├── figure5_tsne_drift.pdf
+│   ├── figure5_tsne_drift.png
+│   ├── figure6_error_analysis.pdf
+│   ├── figure6_error_analysis.png
+│   ├── figures
+│   ├── final_per_type.json
+│   ├── final_results.csv
+│   ├── gdumb_accuracy_matrix.csv
+│   ├── gdumb_cl_metrics.json
+│   ├── icarl_accuracy_matrix.csv
+│   ├── icarl_cl_metrics.json
+│   ├── logs
+│   │   ├── adaptive_replay.log
+│   │   ├── cl_experiment.log
+│   │   ├── cl_extra.log
+│   │   ├── distilbert_baseline.log
+│   │   ├── distilbert_multiseed.log
+│   │   ├── drc_cl.log
+│   │   ├── drc_cl_distilbert.log
+│   │   ├── drc_cl_runner.log
+│   │   ├── drift_analysis.log
+│   │   ├── drift_compare.log
+│   │   ├── measure_cost.log
+│   │   ├── multi_seed.log
+│   │   ├── pipeline.log
+│   │   ├── roc_pr.log
+│   │   ├── run_ablation.log
+│   │   ├── run_baselines.log
+│   │   ├── sensitivity.log
+│   │   ├── stat_tests.log
+│   │   ├── step0_download_benign.log
+│   │   ├── step1_merge.log
+│   │   ├── step2_windows.log
+│   │   ├── step3_benign.log
+│   │   ├── step4_drift.log
+│   │   ├── step4_drift_stub.log
+│   │   ├── step5_integrity.log
+│   │   ├── step6_split.log
+│   │   ├── train_backbone.log
+│   │   └── unseen_families.log
+│   ├── multi_seed
+│   │   ├── aggregated_results.csv
+│   │   ├── all_seeds_raw.json
+│   │   ├── seed_123
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   ├── seed_2024
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   ├── seed_2384
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   ├── seed_3141
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   ├── seed_42
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   ├── seed_456
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   ├── seed_5358
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   ├── seed_5926
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   ├── seed_789
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   ├── seed_9793
+│   │   │   ├── checkpoints
+│   │   │   │   └── backbone_d01.pt
+│   │   │   └── seed_results.json
+│   │   └── wilcoxon_tests.csv
+│   ├── per_family_analysis.csv
+│   ├── run_config.json
+│   ├── sensitivity_results.csv
+│   ├── static-cnn_accuracy_matrix.csv
+│   ├── static-cnn_cl_metrics.json
+│   ├── static_cnn_per_window.csv
+│   ├── sw-retrain_accuracy_matrix.csv
+│   ├── sw-retrain_cl_metrics.json
+│   ├── table_iv_comparison.csv
+│   └── unseen_families_results.csv
+├── src
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   └── __init__.cpython-311.pyc
+│   ├── data
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-311.pyc
+│   │   │   ├── run_pipeline.cpython-311.pyc
+│   │   │   ├── step0_download_benign.cpython-311.pyc
+│   │   │   ├── step1_merge_dgarchive.cpython-311.pyc
+│   │   │   ├── step2_build_dga_windows.cpython-311.pyc
+│   │   │   ├── step3_merge_benign.cpython-311.pyc
+│   │   │   ├── step4_annotate_drift.cpython-311.pyc
+│   │   │   ├── step5_integrity_report.cpython-311.pyc
+│   │   │   └── step6_split_train_test.cpython-311.pyc
+│   │   ├── run_pipeline.py
+│   │   ├── step0_download_benign.py
+│   │   ├── step1_merge_dgarchive.py
+│   │   ├── step2_build_dga_windows.py
+│   │   ├── step3_merge_benign.py
+│   │   ├── step4_annotate_drift.py
+│   │   ├── step5_integrity_report.py
+│   │   └── step6_split_train_test.py
+│   ├── detect
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-311.pyc
+│   │   │   └── add_detector.cpython-311.pyc
+│   │   └── add_detector.py
+│   ├── models
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-311.pyc
+│   │   │   ├── adaptive_replay.cpython-311.pyc
+│   │   │   ├── baselines.cpython-311.pyc
+│   │   │   ├── char_cnn.cpython-311.pyc
+│   │   │   ├── cl_baselines_extra.cpython-311.pyc
+│   │   │   ├── cl_experiment.cpython-311.pyc
+│   │   │   ├── cl_metrics.cpython-311.pyc
+│   │   │   ├── compare_drift_detectors.cpython-311.pyc
+│   │   │   ├── distilbert_baseline.cpython-311.pyc
+│   │   │   ├── drc_cl.cpython-311.pyc
+│   │   │   ├── drc_cl_distilbert.cpython-311.pyc
+│   │   │   ├── drc_cl_runner.cpython-311.pyc
+│   │   │   ├── drift_analysis.cpython-311.pyc
+│   │   │   ├── eval_unseen_families.cpython-311.pyc
+│   │   │   ├── evaluate_cl.cpython-311.pyc
+│   │   │   ├── gen_figures.cpython-311.pyc
+│   │   │   ├── gen_roc_pr.cpython-311.pyc
+│   │   │   ├── lora_adapter.cpython-311.pyc
+│   │   │   ├── measure_cost.cpython-311.pyc
+│   │   │   ├── run_ablation.cpython-311.pyc
+│   │   │   ├── run_baselines.cpython-311.pyc
+│   │   │   ├── run_distilbert_multiseed.cpython-311.pyc
+│   │   │   ├── run_multi_seed.cpython-311.pyc
+│   │   │   ├── run_sensitivity.cpython-311.pyc
+│   │   │   ├── statistical_tests.cpython-311.pyc
+│   │   │   └── train_backbone.cpython-311.pyc
+│   │   ├── adaptive_replay.py
+│   │   ├── baselines.py
+│   │   ├── char_cnn.py
+│   │   ├── cl_baselines_extra.py
+│   │   ├── cl_experiment.py
+│   │   ├── cl_metrics.py
+│   │   ├── compare_drift_detectors.py
+│   │   ├── distilbert_baseline.py
+│   │   ├── drc_cl.py
+│   │   ├── drc_cl_distilbert.py
+│   │   ├── drc_cl_runner.py
+│   │   ├── drift_analysis.py
+│   │   ├── eval_unseen_families.py
+│   │   ├── evaluate_cl.py
+│   │   ├── gen_figures.py
+│   │   ├── gen_roc_pr.py
+│   │   ├── lora_adapter.py
+│   │   ├── measure_cost.py
+│   │   ├── run_ablation.py
+│   │   ├── run_all_experiments.py
+│   │   ├── run_baselines.py
+│   │   ├── run_distilbert_multiseed.py
+│   │   ├── run_multi_seed.py
+│   │   ├── run_sensitivity.py
+│   │   ├── statistical_tests.py
+│   │   └── train_backbone.py
+│   └── utils
+│       ├── __init__.py
+│       ├── __pycache__
+│       │   ├── __init__.cpython-311.pyc
+│       │   ├── common.cpython-311.pyc
+│       │   └── dga_taxonomy.cpython-311.pyc
+│       ├── common.py
+│       └── dga_taxonomy.py
+├── temp.py
+└── tests
+    ├── __init__.py
+    └── test_data_pipeline.py

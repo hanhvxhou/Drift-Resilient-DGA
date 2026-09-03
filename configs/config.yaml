@@ -1,0 +1,78 @@
+# ============================================================
+#  DRC-CL Project Configuration
+#  "A Drift-Resilient Continual Learning Framework
+#   for Long-Term DGA Botnet Detection"
+# ============================================================
+
+paths:
+  dgarchive_raw:   data/raw/dgarchive        # put *_dga.csv files here
+  benign_raw:      data/raw/benign           # put tranco_*.csv / alexa_*.csv here
+  interim:         data/interim              # merged DGA parquet (after step 1)
+  windows_dir:     data/processed/windows    # D01.csv … D24.csv (DGA only)
+  benchmark_dir:   data/processed/benchmark  # D01.csv … D24.csv (DGA + benign, final)
+  results:         results
+
+# ── Temporal window definition ───────────────────────────────
+temporal:
+  start: "2018-01-01"
+  end:   "2023-12-31"
+  # Generates 24 quarters: 2018Q1 … 2023Q4
+  freq:  "QS"          # quarter-start frequency (pandas)
+
+# ── DGA sampling parameters ──────────────────────────────────
+dga:
+  min_family_samples: 2000   # families with fewer samples (2018-2023) are dropped
+  max_per_window:    50000   # DGA domains per quarterly window (stratified)
+  label: 1                   # DGA = 1 in output
+
+# ── Benign sampling parameters ───────────────────────────────
+# VẤN ĐỀ: Tranco/Alexa không có timestamp từng tên miền
+#          → phải dùng chiến lược phân vùng để tránh temporal leak.
+benign:
+  max_per_window:  50000     # benign domains per quarterly window
+  label: 0                   # benign = 0 in output
+
+  # Chiến lược gán benign vào cửa sổ thời gian:
+  #
+  # "annual_partition" (KHUYẾN NGHỊ):
+  #   - Mỗi năm dùng snapshot Tranco/Alexa của năm đó.
+  #   - Pool của năm được PHÂN VÙNG (không lặp) thành 4 phần → 4 quý.
+  #   - Không temporal leak trong năm; cross-year overlap được lọc.
+  #   - Yêu cầu: tranco_2018.csv … tranco_2023.csv (hoặc alexa_YYYY.csv)
+  #
+  # "single_snapshot":
+  #   - Dùng 1 file duy nhất (file mới nhất hoặc single_snapshot_file).
+  #   - Pool được partition thành 24 phần không chồng nhau.
+  #   - Tuyệt đối không temporal leak; nhưng không phản ánh drift benign.
+  #   - Yêu cầu: ít nhất 1 file tranco_*.csv hoặc alexa_*.csv
+  #
+  strategy: "annual_partition"
+
+  # Chỉ dùng cho strategy "single_snapshot":
+  # Để null → tự động chọn file Tranco mới nhất.
+  single_snapshot_file: null
+
+  # Loại bỏ tên miền trùng giữa các năm (annual_partition):
+  verify_cross_year_overlap: true
+
+  # File naming convention expected:
+  #   data/raw/benign/tranco_YYYY.csv  → single column "domain"
+  #   data/raw/benign/alexa_YYYY.csv   → single column "domain"
+
+# ── Integrity checks ─────────────────────────────────────────
+integrity:
+  verify_no_future_leak: true   # abort if a domain appears in a later window
+  verify_no_cross_contamination: true  # remove domains in both DGA and benign
+
+# ── Reproducibility ──────────────────────────────────────────
+random_seed: 42
+
+# ── Drift annotation (step 3, requires pretrained backbone) ──
+drift:
+  embedding_samples_per_window: 5000
+  mmd_kernel: "rbf"          # Gaussian RBF
+  # thresholds calibrated on held-out tail of D01 during training
+  delta1: null   # filled automatically during calibration
+  delta2: null
+  tau: 0.85      # cosine-similarity threshold for recurring drift
+  k:   3         # min consecutive windows for gradual drift label

@@ -1,0 +1,7 @@
+precision,recall,f1,n_gt,n_pred,method,type,time_s,error
+0.1667,0.5,0.25,2.0,6.0,ADD (ours),unsupervised,242.53,
+0.5,0.5,0.5,2.0,2.0,ADWIN,supervised,0.18,
+,,0.0,,,DDM,supervised,,module 'river.drift' has no attribute 'DDM'
+,,0.0,,,EDDM,supervised,,module 'river.drift' has no attribute 'EDDM'
+0.0769,0.5,0.1333,2.0,13.0,PageHinkley,supervised,0.2,
+0.0,0.0,0.0,2.0,2.0,KSWIN,supervised,72.13,

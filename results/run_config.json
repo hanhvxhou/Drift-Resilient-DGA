@@ -1,0 +1,22 @@
+{
+  "lora": {
+    "rank": 8,
+    "alpha": 16.0
+  },
+  "ser": {
+    "capacity": 5000,
+    "beta": 0.92,
+    "min_k": 50
+  },
+  "ewc": {
+    "lambda": 0.4
+  },
+  "training": {
+    "lr": 0.0005,
+    "update_epochs": 5,
+    "batch_size": 512,
+    "mix_ratio": 0.3
+  },
+  "seed": 42,
+  "device": "cuda"
+}

@@ -1,0 +1,4 @@
+fold,holdout,f1_all,f1_seen,f1_unseen,time_s
+1,"suppobox, nymaim2, darkwatchman, flubot, bazarbackdoor",0.9415,0.9479,0.2965,387.9
+2,"suppobox, nymaim2, darkwatchman, flubot, bazarbackdoor",0.9417,0.9488,0.2915,387.2
+3,"suppobox, nymaim2, darkwatchman, flubot, bazarbackdoor",0.9421,0.9488,0.2965,386.4

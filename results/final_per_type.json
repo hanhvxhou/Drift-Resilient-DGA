@@ -1,0 +1,92 @@
+{
+  "Static-CNN": {
+    "char_based": {
+      "aa_f1": 0.8679,
+      "bwt": 0.0
+    },
+    "word_based": {
+      "aa_f1": 0.0197,
+      "bwt": 0.0
+    }
+  },
+  "SW-Retrain": {
+    "char_based": {
+      "aa_f1": 0.9507,
+      "bwt": -0.0077
+    },
+    "word_based": {
+      "aa_f1": 0.0266,
+      "bwt": -0.0209
+    }
+  },
+  "EWC-only": {
+    "char_based": {
+      "aa_f1": 0.9633,
+      "bwt": 0.0005
+    },
+    "word_based": {
+      "aa_f1": 0.0434,
+      "bwt": -0.0236
+    }
+  },
+  "iCaRL": {
+    "char_based": {
+      "aa_f1": 0.9511,
+      "bwt": 0.0122
+    },
+    "word_based": {
+      "aa_f1": 0.0149,
+      "bwt": -0.0152
+    }
+  },
+  "GDumb": {
+    "char_based": {
+      "aa_f1": 0.9339,
+      "bwt": -0.0087
+    },
+    "word_based": {
+      "aa_f1": 0.0195,
+      "bwt": -0.017
+    }
+  },
+  "CNN + LoRA Update": {
+    "char_based": {
+      "aa_f1": 0.9501,
+      "bwt": 0.0021
+    },
+    "word_based": {
+      "aa_f1": 0.0199,
+      "bwt": -0.0134
+    }
+  },
+  "CNN + LoRA + SER": {
+    "char_based": {
+      "aa_f1": 0.9516,
+      "bwt": 0.0021
+    },
+    "word_based": {
+      "aa_f1": 0.0194,
+      "bwt": -0.0143
+    }
+  },
+  "CNN + LoRA + SER + EWC": {
+    "char_based": {
+      "aa_f1": 0.95,
+      "bwt": -0.0
+    },
+    "word_based": {
+      "aa_f1": 0.0191,
+      "bwt": -0.0179
+    }
+  },
+  "DRC-CL": {
+    "char_based": {
+      "aa_f1": 0.949,
+      "bwt": 0.0029
+    },
+    "word_based": {
+      "aa_f1": 0.0184,
+      "bwt": -0.0143
+    }
+  }
+}

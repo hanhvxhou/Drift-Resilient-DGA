@@ -1,0 +1,76 @@
+{
+  "derpp": [
+    {
+      "seed": 42,
+      "aa_f1": 0.9511,
+      "bwt": 0.0046,
+      "forgetting": 0.0004,
+      "degrad": 0.0032
+    },
+    {
+      "seed": 123,
+      "aa_f1": 0.9515,
+      "bwt": 0.0046,
+      "forgetting": 0.0006,
+      "degrad": 0.0033
+    },
+    {
+      "seed": 456,
+      "aa_f1": 0.9508,
+      "bwt": 0.0035,
+      "forgetting": 0.0012,
+      "degrad": 0.0058
+    },
+    {
+      "seed": 789,
+      "aa_f1": 0.9502,
+      "bwt": 0.0038,
+      "forgetting": 0.0008,
+      "degrad": 0.0047
+    },
+    {
+      "seed": 2024,
+      "aa_f1": 0.9505,
+      "bwt": 0.0045,
+      "forgetting": 0.0003,
+      "degrad": 0.0038
+    }
+  ],
+  "agem": [
+    {
+      "seed": 42,
+      "aa_f1": 0.9621,
+      "bwt": 0.0022,
+      "forgetting": 0.0014,
+      "degrad": -0.0029
+    },
+    {
+      "seed": 123,
+      "aa_f1": 0.9623,
+      "bwt": -0.0008,
+      "forgetting": 0.0041,
+      "degrad": -0.0018
+    },
+    {
+      "seed": 456,
+      "aa_f1": 0.9633,
+      "bwt": 0.0012,
+      "forgetting": 0.0014,
+      "degrad": -0.0027
+    },
+    {
+      "seed": 789,
+      "aa_f1": 0.9621,
+      "bwt": 0.002,
+      "forgetting": 0.0014,
+      "degrad": -0.0031
+    },
+    {
+      "seed": 2024,
+      "aa_f1": 0.9619,
+      "bwt": 0.0019,
+      "forgetting": 0.0016,
+      "degrad": -0.0286
+    }
+  ]
+}

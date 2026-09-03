@@ -1,0 +1,15 @@
+{
+  "method": "DRC-CL (DistilBERT)",
+  "aa_f1_mean": 0.9594,
+  "aa_f1_std": 0.0003,
+  "bwt_mean": 0.0049,
+  "bwt_std": 0.0006,
+  "forgetting_mean": 0.0007,
+  "forgetting_std": 0.0006,
+  "degrad_mean": -0.0161,
+  "degrad_std": 0.0005,
+  "aa_f1_char_mean": 0.9663,
+  "aa_f1_char_std": 0.0008,
+  "aa_f1_word_mean": 0.0024,
+  "aa_f1_word_std": 0.0005
+}

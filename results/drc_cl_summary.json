@@ -1,0 +1,19 @@
+{
+  "aa_f1": 0.9421139019246908,
+  "aa_auc": 0.9854658567217389,
+  "bwt": 0.001716066653460418,
+  "fwt": 0.0,
+  "total_time_s": 369.04337215423584,
+  "adapter_bank": 1,
+  "drift_summary": {
+    "none": 5,
+    "recurring": 17,
+    "sudden": 1
+  },
+  "buffer_stats": {
+    "total": 5000,
+    "benign": 2500,
+    "dga": 2500,
+    "dga_families": 45
+  }
+}

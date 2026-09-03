@@ -1,0 +1,22 @@
+{
+  "aa_f1": 0.9482,
+  "bwt": -0.0003,
+  "fwt": 0.0,
+  "forgetting": 0.004,
+  "degrad": 0.0112,
+  "f1_old": 0.9522,
+  "f1_first": 0.9617,
+  "f1_last": 0.9505,
+  "aa_f1_char": 0.9499,
+  "aa_f1_word": 0.002,
+  "per_type": {
+    "char_based": {
+      "aa_f1": 0.95,
+      "bwt": -0.0
+    },
+    "word_based": {
+      "aa_f1": 0.0191,
+      "bwt": -0.0179
+    }
+  }
+}

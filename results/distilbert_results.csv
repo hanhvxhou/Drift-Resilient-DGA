@@ -1,0 +1,3 @@
+aa_f1,bwt,fwt,forgetting,degrad,f1_old,f1_first,f1_last,aa_f1_char,aa_f1_word,method,time_s
+0.8767,0.0,0.0,0.0,0.1273,0.972,0.972,0.8447,0.8777,0.0902,DistilBERT (Static),995.7
+0.9729,-0.0019,0.0,0.0032,-0.0026,0.9665,0.972,0.9746,0.9724,0.0743,DistilBERT + Fine-tune,3482.4

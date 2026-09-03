@@ -1,0 +1,61 @@
+# ============================================================
+#  DRC-CL — .gitignore
+# ============================================================
+
+# ---- Data: NEVER commit raw datasets (DGArchive license) ----
+data/raw/
+data/interim/
+data/processed/
+*.parquet
+# keep split indices / hashes for reproducibility:
+!data/processed/benchmark/drift_labels.json
+!data/processed/benchmark/integrity_report.txt
+!data/**/split_index*.csv
+!data/**/*.sha256
+
+# ---- Model checkpoints & large binaries ----
+results/checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.safetensors
+*.onnx
+
+# ---- Fabricated CD-diagram artifacts (do NOT redistribute) ----
+results/cd_diagram_*.png
+results/cd_diagram_*.pdf
+
+# ---- Logs ----
+results/logs/
+*.log
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+env/
+ENV/
+
+# ---- Editors / OS ----
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---- Jupyter ----
+notebooks/*.ipynb_checkpoints/
