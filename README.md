@@ -282,3 +282,97 @@ If you use this code or the benchmark, please cite:
 
 *(Volume, DOI, and a Zenodo archive DOI for this repository will be added on
 acceptance.)*
+
+## Data Availability
+
+This repository contains all **code, configuration, split indices, drift
+labels, per-seed outputs, and the 24×24 accuracy matrices** needed to
+reproduce every table and figure in the paper. The **raw domain datasets are
+not redistributed here** for the reasons below; they are obtained from their
+original providers and placed under `data/raw/` (see *Place raw data* above),
+after which the pipeline regenerates the exact benchmark.
+
+### Datasets used
+
+| Source | Content | How to obtain | Redistributed here? |
+|---|---|---|---|
+| **DGArchive** (Fraunhofer FKIE) | DGA domains, 89 families, 2018Q1–2023Q4 | Request access from Fraunhofer FKIE at https://dgarchive.caad.fkie.fraunhofer.de/ | **No** — access-restricted license |
+| **Tranco** | Benign domains, annual Top-1M snapshots (2018–2023) | Public download from https://tranco-list.eu/ | **No** — regenerated from public lists |
+
+DGArchive is provided under an access-restricted research agreement, so its
+domains **cannot** be re-hosted. Tranco snapshots are public but large, so we
+ship the split definition rather than the raw lists. Either way, the benchmark
+is fully reconstructible from the artifacts in this repository.
+
+### What *is* provided for exact reproduction
+
+- **Split indices** — `data/processed/benchmark/split_index_D01.csv` …
+  `split_index_D24.csv` (columns: `domain`, `label`, `split`), which fix the
+  exact train/test assignment for every window.
+- **Drift labels and integrity report** — `drift_labels.json` and
+  `integrity_report.txt`, which record the 24 quarterly windows, the 80/20
+  stratified split, and the cross-contamination check.
+- **Content hashes** — a per-file `*.sha256` sidecar plus a single
+  `benchmark_manifest.csv` (file, row counts, family count, SHA-256), so a
+  regenerated benchmark can be byte-verified against the one used in the paper.
+- **Per-seed results** — `results/multi_seed/all_seeds_raw.json` and
+  `aggregated_results.csv` (mean ± sample standard deviation, `ddof = 1`).
+- **Accuracy matrices** — the full 24×24 matrix (`*_accuracy_matrix.csv`) and
+  CL metrics (`*_cl_metrics.json`) for DRC-CL and every baseline.
+
+### Reproduce the benchmark
+
+```bash
+# After placing raw data under data/raw/ (see "Place raw data")
+python -m src.data.run_pipeline            # rebuild the 24-window benchmark
+python -m src.data.step7_generate_hashes   # write *.sha256 + benchmark_manifest.csv
+
+# Verify a rebuilt benchmark against the hashes shipped in this repo
+python -m src.data.step7_generate_hashes --verify
+```
+
+`--verify` recomputes every hash and compares it to `benchmark_manifest.csv`,
+exiting non-zero on any mismatch. A benchmark that verifies clean is identical,
+byte for byte, to the one used in the paper.
+
+### A note on the statistical tests
+
+`src/models/statistical_tests.py` computes the Friedman test and Nemenyi
+critical-difference analysis **only from real per-seed results**. If fewer
+than the required number of methods have genuine per-seed data, the script
+**raises an error rather than fabricating any values**. Its header documents a
+bug in an earlier revision that has been corrected; the fix is intentional and
+part of the record.
+
+---
+
+## License
+
+The **code** in this repository is released under the MIT License (see
+[`LICENSE`](LICENSE)).
+
+This license covers the source code only. The **datasets are governed by their
+own terms**: DGArchive under the Fraunhofer FKIE research agreement, and Tranco
+under the Tranco project's terms of use. Please consult and comply with each
+provider's license before use.
+
+---
+
+## Citation
+
+If you use this code or the benchmark, please cite:
+
+```bibtex
+@article{Vu2026DRCCL,
+  author  = {Vu, Xuan Hanh and Hoang, Xuan Dau},
+  title   = {{DRC-CL}: A Drift-Resilient Continual Learning Framework
+             for Long-Term {DGA} Botnet Detection},
+  journal = {IEEE Access},
+  year    = {2026},
+  note    = {Manuscript under review}
+}
+```
+
+*(Volume, DOI, and a Zenodo archive DOI for this repository will be added on
+acceptance.)*
+
