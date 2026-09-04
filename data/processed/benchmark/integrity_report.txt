@@ -1,0 +1,55 @@
+============================================================
+ DRC-CL Benchmark Integrity Report
+============================================================
+
+D01 (2018_Q1): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 52
+
+D02 (2018_Q2): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 52
+
+D03 (2018_Q3): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 53
+
+D04 (2018_Q4): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 53
+
+D05 (2019_Q1): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 50
+
+D06 (2019_Q2): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 50
+
+D07 (2019_Q3): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 52
+
+D08 (2019_Q4): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 52
+
+D09 (2020_Q1): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 54
+
+D10 (2020_Q2): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 56
+
+D11 (2020_Q3): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 56
+
+D12 (2020_Q4): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 56
+
+D13 (2021_Q1): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 60
+
+D14 (2021_Q2): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 61
+
+D15 (2021_Q3): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 61
+
+D16 (2021_Q4): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 61
+
+D17 (2022_Q1): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 61
+
+D18 (2022_Q2): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 61
+
+D19 (2022_Q3): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 63
+
+D20 (2022_Q4): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 64
+
+D21 (2023_Q1): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 62
+
+D22 (2023_Q2): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 62
+
+D23 (2023_Q3): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 62
+
+D24 (2023_Q4): ✓  total=100,000  DGA=50,000  benign=50,000  benign%=50.0%  families= 62
+
+============================================================
+Overall result: ALL CHECKS PASSED ✓
+============================================================

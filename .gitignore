@@ -2,16 +2,24 @@
 #  DRC-CL — .gitignore
 # ============================================================
 
-# ---- Data: NEVER commit raw datasets (DGArchive license) ----
+# ---- Data: raw datasets are NEVER committed (DGArchive license) ----
 data/raw/
 data/interim/
-data/processed/
 *.parquet
-# keep split indices / hashes for reproducibility:
+
+# ---- data/processed/: block by default, then re-include only the
+#      small reproducibility artifacts (Git needs each parent dir
+#      un-ignored before a nested file can be whitelisted) ----
+data/processed/*
+!data/processed/benchmark/
+data/processed/benchmark/*
 !data/processed/benchmark/drift_labels.json
 !data/processed/benchmark/integrity_report.txt
-!data/**/split_index*.csv
-!data/**/*.sha256
+!data/processed/benchmark/family_coverage.csv
+!data/processed/benchmark/benchmark_manifest.csv
+!data/processed/benchmark/*.sha256
+# (the heavy window CSVs D*.csv and splits/ stay excluded by the
+#  "data/processed/benchmark/*" line above — they are raw domains)
 
 # ---- Model checkpoints & large binaries ----
 results/checkpoints/
