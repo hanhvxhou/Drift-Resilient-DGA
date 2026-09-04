@@ -1,29 +1,34 @@
-# DRC-CL Project — Python dependencies
+# DRC-CL Project - Python dependencies
 # Install with: pip install -r requirements.txt
 
 # Core data stack
 numpy>=1.24
 pandas>=2.0
 pyarrow>=14.0          # Parquet read/write
-scipy>=1.11            # pdist for MMD²
+scipy>=1.11            # pdist for MMD^2
 
 # Config
 pyyaml>=6.0
 
-# Deep learning (for backbone / training steps)
+# Deep learning (backbone / training / adapters)
 torch>=2.1
-torchvision>=0.16      # optional, for future CV utilities
+transformers>=4.40     # DistilBERT backbone
+peft>=0.11             # LoRA adapters
 
-# Experiment tracking (optional but recommended)
-# wandb>=0.16
+# Machine learning utilities
+scikit-learn>=1.4      # stratified split, metrics
 
-# Notebooks
-jupyter>=1.0
+# Plotting / figures
 matplotlib>=3.7
 seaborn>=0.13
 
-# Code quality
+# Notebooks (optional)
+jupyter>=1.0
+
+# Code quality / tests (optional for reproduction)
 black>=24.0
 ruff>=0.4
 pytest>=8.0
-scikit-learn>=1.4
+
+# Experiment tracking (optional)
+# wandb>=0.16
