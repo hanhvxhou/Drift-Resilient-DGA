@@ -1,21 +1,21 @@
 {
-  "aa_f1": 0.8767,
+  "aa_f1": 0.88,
   "bwt": 0.0,
   "fwt": 0.0,
   "forgetting": 0.0,
-  "degrad": 0.1273,
-  "f1_old": 0.972,
-  "f1_first": 0.972,
-  "f1_last": 0.8447,
-  "aa_f1_char": 0.8777,
-  "aa_f1_word": 0.0902,
+  "degrad": 0.1208,
+  "f1_old": 0.9723,
+  "f1_first": 0.9723,
+  "f1_last": 0.8516,
+  "aa_f1_char": 0.8812,
+  "aa_f1_word": 0.071,
   "per_type": {
     "char_based": {
-      "aa_f1": 0.8777,
+      "aa_f1": 0.8812,
       "bwt": 0.0
     },
     "word_based": {
-      "aa_f1": 0.0902,
+      "aa_f1": 0.071,
       "bwt": 0.0
     }
   }

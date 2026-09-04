@@ -10,44 +10,57 @@ drc_cl_project/
 │
 ├── data/
 │   ├── raw/
-│   │   ├── dgarchive/           ← PUT *_dga.csv files HERE
-│   │   └── benign/              ← PUT tranco_YYYY.csv / alexa_YYYY.csv HERE
+│   │   ├── dgarchive/           ← PUT *_dga.csv files HERE (not redistributed)
+│   │   └── benign/              ← PUT tranco_YYYY.csv HERE
 │   ├── interim/                 ← auto-generated (merged Parquet)
 │   └── processed/
 │       ├── windows/             ← D01_dga.csv … D24_dga.csv  (DGA only)
 │       └── benchmark/           ← D01.csv … D24.csv  (DGA + benign, final)
-│                                   drift_labels.json
-│                                   integrity_report.txt
+│                                   drift_labels.json, integrity_report.txt
+│                                   *.sha256, benchmark_manifest.csv
 │
 ├── src/
-│   ├── data/
-│   │   ├── step1_merge_dgarchive.py   ← read CSVs → Parquet
-│   │   ├── step2_build_dga_windows.py ← 24 quarterly windows (DGA)
-│   │   ├── step3_merge_benign.py      ← add benign, cross-contamination check
-│   │   ├── step4_annotate_drift.py    ← MMD² drift labels
-│   │   ├── step5_integrity_report.py  ← final QA
-│   │   └── run_pipeline.py            ← master runner
-│   ├── models/                        ← CharCNN backbone (separate module)
-│   ├── detect/                        ← ADD drift detector (separate module)
+│   ├── data/                    ← data pipeline (run in order)
+│   │   ├── step0_download_benign.py
+│   │   ├── step1_merge_dgarchive.py
+│   │   ├── step2_build_dga_windows.py
+│   │   ├── step3_merge_benign.py
+│   │   ├── step4_annotate_drift.py
+│   │   ├── step5_integrity_report.py
+│   │   ├── step6_split_train_test.py     ← 80/20 stratified train/test
+│   │   ├── step7_generate_hashes.py      ← SHA-256 manifest + --verify
+│   │   └── run_pipeline.py               ← master runner
+│   │
+│   ├── models/                  ← backbones, DRC-CL, baselines, CL, stats
+│   │   ├── char_cnn.py, lora_adapter.py            ← backbone + LoRA
+│   │   ├── drc_cl.py, drc_cl_distilbert.py, drc_cl_runner.py, adaptive_replay.py
+│   │   ├── baselines.py, cl_baselines_extra.py, distilbert_baseline.py
+│   │   ├── cl_experiment.py, evaluate_cl.py, cl_metrics.py
+│   │   ├── run_multi_seed.py, run_distilbert_multiseed.py, run_baselines.py
+│   │   ├── run_ablation.py, run_sensitivity.py, run_all_experiments.py
+│   │   ├── statistical_tests.py                    ← Friedman + Nemenyi (real data only)
+│   │   ├── compare_drift_detectors.py, drift_analysis.py, eval_unseen_families.py
+│   │   ├── measure_cost.py, train_backbone.py
+│   │   └── gen_figures.py, gen_roc_pr.py           ← figure generation
+│   │
+│   ├── detect/
+│   │   └── add_detector.py      ← ADD unsupervised drift detector (MMD²)
+│   │
 │   └── utils/
-│       └── common.py                  ← config, logging, quarter helpers
-│
-├── notebooks/
-│   └── (EDA notebooks go here)
+│       └── common.py            ← config, logging, quarter helpers
 │
 ├── tests/
-│   └── test_data_pipeline.py          ← pytest unit + integration tests
+│   └── test_data_pipeline.py    ← pytest unit + integration tests
 │
 ├── results/
-│   ├── checkpoints/
-│   ├── logs/
-│   └── figures/
+│   ├── multi_seed/              ← all_seeds_raw.json, aggregated_results.csv
+│   ├── *_accuracy_matrix.csv    ← 24×24 accuracy matrices (per method)
+│   ├── *_cl_metrics.json        ← AA / BWT / Forgetting per method
+│   ├── checkpoints/, logs/, figures/
 │
 ├── requirements.txt
 └── README.md
 ```
-
----
 
 ## Quick start
 
@@ -114,11 +127,14 @@ python -m src.data.run_pipeline --stub --start-from 3
 ### 4. Run individual steps
 
 ```bash
-python -m src.data.step1_merge_dgarchive   # → data/interim/dgarchive_merged.parquet
-python -m src.data.step2_build_dga_windows # → data/processed/windows/D01_dga.csv…
-python -m src.data.step3_merge_benign      # → data/processed/benchmark/D01.csv…
-python -m src.data.step4_annotate_drift --stub  # → drift_labels.json
-python -m src.data.step5_integrity_report  # → integrity_report.txt
+python -m src.data.step0_download_benign     # (optional) fetch Tranco snapshots
+python -m src.data.step1_merge_dgarchive     # → data/interim/dgarchive_merged.parquet
+python -m src.data.step2_build_dga_windows   # → data/processed/windows/D01_dga.csv…
+python -m src.data.step3_merge_benign        # → data/processed/benchmark/D01.csv…
+python -m src.data.step4_annotate_drift --stub   # → drift_labels.json
+python -m src.data.step5_integrity_report    # → integrity_report.txt
+python -m src.data.step6_split_train_test    # → benchmark/splits/D01_train.csv…
+python -m src.data.step7_generate_hashes     # → *.sha256 + benchmark_manifest.csv
 ```
 
 ### 5. Run tests

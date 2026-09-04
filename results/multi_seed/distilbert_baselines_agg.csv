@@ -1,0 +1,3 @@
+method,n_seeds,aa_f1_mean,aa_f1_std,aa_f1_str,bwt_mean,bwt_std,bwt_str,forgetting_mean,forgetting_std,forgetting_str,degrad_mean,degrad_std,degrad_str
+DistilBERT (Static),5,0.8763,0.0037,0.8763 +/- 0.0037,0.0,0.0,0.0000 +/- 0.0000,0.0,0.0,0.0000 +/- 0.0000,0.1259,0.0072,0.1259 +/- 0.0072
+DistilBERT + Fine-tune,5,0.9729,0.0002,0.9729 +/- 0.0002,-0.0018,0.0004,-0.0018 +/- 0.0004,0.0032,0.0005,0.0032 +/- 0.0005,-0.0033,0.0007,-0.0033 +/- 0.0007

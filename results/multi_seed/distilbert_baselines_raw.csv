@@ -1,0 +1,11 @@
+method,seed,aa_f1,bwt,forgetting,degrad
+DistilBERT (Static),42,0.8744,0.0,0.0,0.1276
+DistilBERT + Fine-tune,42,0.9729,-0.0016,0.0027,-0.0034
+DistilBERT (Static),123,0.8734,0.0,0.0,0.129
+DistilBERT + Fine-tune,123,0.9727,-0.0019,0.0033,-0.0039
+DistilBERT (Static),456,0.8731,0.0,0.0,0.1353
+DistilBERT + Fine-tune,456,0.9731,-0.0013,0.0027,-0.0024
+DistilBERT (Static),789,0.8806,0.0,0.0,0.1169
+DistilBERT + Fine-tune,789,0.9727,-0.0023,0.0039,-0.004
+DistilBERT (Static),2024,0.88,0.0,0.0,0.1208
+DistilBERT + Fine-tune,2024,0.9731,-0.0021,0.0032,-0.0029
