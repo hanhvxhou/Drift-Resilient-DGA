@@ -62,6 +62,12 @@ class AccuracyMatrix:
                 self.f1_char_matrix[t][s] = row[wid].get("f1_char", np.nan)
                 self.f1_word_matrix[t][s] = row[wid].get("f1_word", np.nan)
 
+    def add_forward_eval(self, t, f1_value):
+        """Fill a[t-1][t]: window t evaluated BEFORE it is learned (for FWT).
+        Called once per step, just before the model is updated on window t."""
+        if t >= 1 and f1_value is not None:
+            self.f1_matrix[t - 1][t] = f1_value
+
     def compute_metrics(self):
         T, a = self.T, self.f1_matrix
         diag = [a[i][i] for i in range(T) if not np.isnan(a[i][i])]

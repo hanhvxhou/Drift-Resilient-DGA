@@ -39,7 +39,7 @@ from scipy.special import expit as sigmoid_stable
 
 from src.models.char_cnn import CharCNN, domain_to_tensor, domains_to_batch, MAX_LEN
 from src.models.lora_adapter import CharCNNWithLoRA, AdapterBank
-from src.models.cl_metrics import AccuracyMatrix, build_accuracy_row, print_metrics_table, print_per_type_table
+from src.models.cl_metrics import AccuracyMatrix, build_accuracy_row, evaluate_on_test, print_metrics_table, print_per_type_table
 from src.detect.add_detector import ADDDetector, extract_embeddings
 from src.utils.common import get_logger, get_window_ids, load_config
 from src.utils.dga_taxonomy import WORD_BASED_FAMILIES
@@ -226,6 +226,14 @@ def run_method(method_name: str, cfg: dict, backbone_path: Path,
         train_d  = train_df["domain"].tolist()
         train_l  = train_df["label"].tolist()
         train_f  = train_df["family"].tolist()
+
+        # ── Forward eval (for FWT): test W_t BEFORE learning it ───────────────
+        # Model here = trained through W_{t-1}, not yet through W_t. Records the
+        # upper off-diagonal a[t-1][t] used by compute_metrics() to derive FWT.
+        if t >= 1:
+            _fwd_test = pd.read_csv(split_dir / f"{win_id}_test.csv")
+            _fwd = evaluate_on_test(model, _fwd_test, device, batch_size=bs)
+            matrix.add_forward_eval(t, _fwd["f1"])
 
         # ── Step 3: Update model (method-specific) ────────────────────────────
         if t > 0 and not is_static:
