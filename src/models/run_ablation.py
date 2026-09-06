@@ -269,10 +269,10 @@ def run_variant(name: str,
             event     = add.detect(curr_embs)
             drift_type = event.drift_type
             should_update = event.needs_update
-            # Update ADD reference
-            if drift_type in ("none", "sudden"):
-                add.archive_centroid()
-            add.set_reference(curr_embs)
+            # NOTE: reference handling matches cl_experiment.py (calibrate once,
+            # then detect). The obsolete archive_centroid()/set_reference() calls
+            # were removed — ADDDetector no longer exposes archive_centroid, and
+            # the reference is kept fixed after calibration (see cl_experiment.py).
 
         # 3. UPDATE if needed
         if t > 0 and should_update:
