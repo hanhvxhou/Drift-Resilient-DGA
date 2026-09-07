@@ -1,7 +1,11 @@
 precision,recall,f1,n_gt,n_pred,method,type,time_s,error
-0.1667,0.5,0.25,2.0,6.0,ADD (ours),unsupervised,242.53,
-0.5,0.5,0.5,2.0,2.0,ADWIN,supervised,0.18,
+0.1667,0.5,0.25,2.0,6.0,ADD (ours),unsupervised,242.89,
+1.0,1.0,1.0,2.0,2.0,ADD-MMD2 (sliding ref),unsupervised,240.13,
+0.1111,1.0,0.2,2.0,18.0,ADD-MMD2 (hybrid ref),unsupervised,282.19,
+0.6667,1.0,0.8,2.0,3.0,KS-test (sliding ref),unsupervised,3.51,
+0.5,0.5,0.5,2.0,2.0,Energy dist (sliding),unsupervised,20.29,
+0.5,0.5,0.5,2.0,2.0,ADWIN,supervised,0.24,
 ,,0.0,,,DDM,supervised,,module 'river.drift' has no attribute 'DDM'
 ,,0.0,,,EDDM,supervised,,module 'river.drift' has no attribute 'EDDM'
 0.0769,0.5,0.1333,2.0,13.0,PageHinkley,supervised,0.2,
-0.0,0.0,0.0,2.0,2.0,KSWIN,supervised,72.13,
+0.0,0.0,0.0,2.0,2.0,KSWIN,supervised,75.03,
