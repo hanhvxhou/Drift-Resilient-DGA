@@ -31,6 +31,7 @@ from scipy.special import expit as sigmoid_stable
 
 from src.models.char_cnn import CharCNN, domains_to_batch
 from src.detect.add_detector import ADDDetector, extract_embeddings
+from src.models.label_free_detectors import run_label_free, LABEL_FREE_CONFIGS
 from src.utils.common import get_logger, load_config, get_window_ids
 
 
@@ -237,6 +238,30 @@ def run(cfg):
     all_results.append(m_add)
     logger.info(f"    P={m_add['precision']:.3f}  R={m_add['recall']:.3f}  "
                 f"F1={m_add['f1']:.3f}  detected={m_add['n_pred']}/{len(gt_2pp)}")
+
+    # ── Label-free comparators (E6): KS, Energy, and MMD2 with
+    #    fixed / sliding / hybrid reference (Reviewer #1 Concern #2) ──
+    logger.info("\n  Running label-free comparators (unsupervised, embedding-space)...")
+    for disp_name, stat_name, ref_mode in LABEL_FREE_CONFIGS:
+        if disp_name.startswith("ADD-MMD2 (fixed"):
+            continue  # identical to ADD (ours) above; skip duplicate
+        logger.info(f"    {disp_name} ...")
+        t0 = time.time()
+        try:
+            pred = run_label_free(model, split_dir, window_ids, device,
+                                  stat_name=stat_name, ref_mode=ref_mode)
+            t_lf = time.time() - t0
+            m = compute_detection_metrics(gt_2pp, pred)
+            m["method"] = disp_name
+            m["type"] = "unsupervised"
+            m["time_s"] = round(t_lf, 2)
+            all_results.append(m)
+            logger.info(f"      P={m['precision']:.3f}  R={m['recall']:.3f}  "
+                        f"F1={m['f1']:.3f}  detected={m['n_pred']}/{len(gt_2pp)}")
+        except Exception as e:
+            logger.warning(f"      {disp_name} failed: {e}")
+            all_results.append({"method": disp_name, "type": "unsupervised",
+                                "f1": 0, "error": str(e)})
 
     # Supervised detectors
     supervised_detectors = ["ADWIN", "DDM", "EDDM", "PageHinkley"]
