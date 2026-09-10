@@ -84,24 +84,28 @@ def train_joint(cfg, seed, split_dir, window_ids, device, logger,
     model = CharCNN().to(device)
     opt = torch.optim.AdamW(model.parameters(), lr=lr)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=epochs, eta_min=lr * 0.01)
-    crit = nn.CrossEntropyLoss()
+    crit = nn.BCEWithLogitsLoss()   # CharCNN outputs a single logit (squeeze(1))
     scaler = torch.cuda.amp.GradScaler(enabled=(device == "cuda"))
 
-    best_val = float("inf"); best_state = None; pc = 0
+    best_f1 = -1.0; best_state = None; pc = 0
     for ep in range(1, epochs + 1):
         tr_loss = train_one_epoch(model, tr_dl, opt, crit, scaler, device)
         vm = evaluate(model, va_dl, crit, device)
         sched.step()
+        val_f1 = vm.get("f1", 0.0)
         logger.info(f"      epoch {ep:2d}: train_loss={tr_loss:.4f}  "
-                    f"val_loss={vm['loss']:.4f}  val_f1={vm.get('f1', float('nan')):.4f}")
-        if vm["loss"] < best_val:
-            best_val = vm["loss"]
+                    f"val_loss={vm['loss']:.4f}  val_f1={val_f1:.4f}")
+        # Early-stop on val_F1, NOT val_loss: on the mixed all-data set a low
+        # loss can coexist with a mis-calibrated decision threshold (F1=0 while
+        # AUC~0.99). Selecting the best-F1 checkpoint avoids that failure mode.
+        if val_f1 > best_f1:
+            best_f1 = val_f1
             best_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
             pc = 0
         else:
             pc += 1
             if pc >= patience:
-                logger.info(f"      early stop at epoch {ep} (patience {patience})")
+                logger.info(f"      early stop at epoch {ep} (patience {patience}, best_f1={best_f1:.4f})")
                 break
     if best_state is not None:
         model.load_state_dict(best_state)

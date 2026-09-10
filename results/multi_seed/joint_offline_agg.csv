@@ -1,2 +1,2 @@
 config,n_seeds,aa_f1_mean,aa_f1_std,drc_cl_aa_f1,gap_drc_cl_to_ceiling
-Joint/Offline (all-data ceiling),10,0.3692,0.4767,0.9457,0.5765
+Joint/Offline (all-data ceiling),10,0.9705,0.0005,0.9457,-0.0248
