@@ -231,7 +231,7 @@ def aggregate_results(all_seeds: dict[int, dict]) -> pd.DataFrame:
                 mean = np.mean(vals)
                 sd = np.std(vals, ddof=1) if len(vals) > 1 else 0.0
                 row[f"{k}_mean"] = round(mean, 4)
-                row[f"{k}_std"] = round(sd, 4)
+                row[f"{k}_std"] Kiểm= round(sd, 4)
                 row[f"{k}_str"] = f"{mean:.4f} +/- {sd:.4f}"
             else:
                 row[f"{k}_mean"] = None
