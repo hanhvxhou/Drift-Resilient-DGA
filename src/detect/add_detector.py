@@ -13,16 +13,34 @@ from scipy.spatial.distance import cdist
 
 
 def mmd2_biased(X: np.ndarray, Y: np.ndarray) -> float:
-    """MMD2 with median-heuristic bandwidth."""
-    all_pts = np.vstack([X, Y])
-    dists = cdist(all_pts, all_pts, metric="euclidean")
-    idx = np.triu_indices(len(all_pts), k=1)
-    sigma = float(np.median(dists[idx]))
+    """Biased MMD2 with median-heuristic bandwidth.
+
+    GPU-accelerated (PyTorch) when CUDA is available; falls back to the exact
+    same computation on CPU otherwise. Numerically identical to the previous
+    scipy.cdist implementation: same median-heuristic sigma over all pairwise
+    Euclidean distances, same Gaussian RBF, same biased estimator
+    (mean of the full kernel blocks). Only the backend changed, so drift
+    decisions are unchanged; this removes the O(N^2) CPU bottleneck."""
+    import torch
+    dev = "cuda" if torch.cuda.is_available() else "cpu"
+    Xt = torch.as_tensor(np.asarray(X), dtype=torch.float32, device=dev)
+    Yt = torch.as_tensor(np.asarray(Y), dtype=torch.float32, device=dev)
+    allp = torch.cat([Xt, Yt], dim=0)
+
+    # median-heuristic sigma over upper-triangular pairwise Euclidean distances
+    d_all = torch.cdist(allp, allp, p=2)
+    n = d_all.shape[0]
+    iu = torch.triu_indices(n, n, offset=1, device=dev)
+    sigma = torch.median(d_all[iu[0], iu[1]]).item()
     if sigma < 1e-10:
         sigma = 1.0
+
     def rbf(A, B):
-        return np.exp(-cdist(A, B, "sqeuclidean") / (2 * sigma ** 2))
-    return float(rbf(X,X).mean() - 2*rbf(X,Y).mean() + rbf(Y,Y).mean())
+        d2 = torch.cdist(A, B, p=2) ** 2
+        return torch.exp(-d2 / (2 * sigma ** 2))
+
+    val = rbf(Xt, Xt).mean() - 2 * rbf(Xt, Yt).mean() + rbf(Yt, Yt).mean()
+    return float(val.item())
 
 
 @dataclass

@@ -1,5 +1,5 @@
 component,time_ms_per_window,note
-extract_embeddings,37.065,shared by ADD & SER
-ADD.detect,6763.344,"MMD² drift test, label-free"
-SER.sample,0.037,reservoir sampling; buffer ≈ 80 KB
-EWC.penalty,0.375,Fisher-diagonal over 12K adapter params
+extract_embeddings,37.196,shared by ADD & SER
+ADD.detect,24.053,"MMD² drift test, label-free"
+SER.sample,0.029,reservoir sampling; buffer ≈ 80 KB
+EWC.penalty,0.331,Fisher-diagonal over 12K adapter params
